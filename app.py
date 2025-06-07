@@ -7,16 +7,16 @@ app.secret_key = "replace_with_a_secure_random_key"
 
 # app.py (top)
 warriors = [
-    {"id": 1,  "name": "Valiant Knight",     "image": "warrior1.png"},
-    {"id": 2,  "name": "Elf Archer",         "image": "warrior2.png"},
-    {"id": 3,  "name": "Dwarf Berserker",    "image": "warrior3.png"},
-    {"id": 4,  "name": "Orc Warlord",        "image": "warrior4.png"},
-    {"id": 5,  "name": "Mystic Mage",        "image": "warrior5.png"},
-    {"id": 6,  "name": "Shadow Assassin",    "image": "warrior6.png"},
-    {"id": 7,  "name": "Vampire Lord",       "image": "warrior7.png"},
-    {"id": 8,  "name": "Samurai Ronin",      "image": "warrior8.png"},
-    {"id": 9,  "name": "Barbarian Chieftain","image": "warrior9.png"},
-    {"id": 10, "name": "Divine Paladin",     "image": "warrior10.png"}
+    {"id": 1,  "name": "Horis",     "image": "warrior1.png"},
+    {"id": 2,  "name": "Vetra",         "image": "warrior2.png"},
+    {"id": 3,  "name": "Shinto",    "image": "warrior3.png"},
+    {"id": 4,  "name": "Petra",        "image": "warrior4.png"},
+    {"id": 5,  "name": "Tidus",        "image": "warrior5.png"},
+    {"id": 6,  "name": "Hilda",    "image": "warrior6.png"},
+    {"id": 7,  "name": "Jaguar",       "image": "warrior7.png"},
+    {"id": 8,  "name": "Betty",      "image": "warrior8.png"},
+    {"id": 9,  "name": "William","image": "warrior9.png"},
+    {"id": 10, "name": "0387",     "image": "warrior10.png"}
 ]
 
 

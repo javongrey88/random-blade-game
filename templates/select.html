@@ -1,26 +1,31 @@
-<!-- templates/select.html -->
+<!-- templates/select.html (Phase 4) -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <title>Random Blade - Select Your Warrior</title>
+    <!-- Link to retro CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
+
 <body>
-    <h1>Random Blade</h1>
-    <h2>Select Your Warrior</h2>
-    <form method="POST">
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;">
-            {% for warrior in warriors %}
-                <div style="text-align: center;">
-                    <!-- Placeholder image -->
-                    <img src="{{ url_for('static', filename='images/' + warrior.image) }}"
-                         alt="{{ warrior.name }}" width="100" height="100" />
-                    <p>{{ warrior.name }}</p>
+    <div class="container">
+        <h1 class="title">Random Blade</h1>
+        <h2>Select Your Warrior</h2>
+        <form method="POST">
+            <div class="card-grid">
+                {% for warrior in warriors %}
+                <div class="warrior-card">
+                    <img src="{{ url_for('static', filename='images/' + warrior.image) }}" alt="{{ warrior.name }}" />
+                    <p class="name">{{ warrior.name }}</p>
                     <input type="radio" name="warrior_id" value="{{ warrior.id }}" required />
                 </div>
-            {% endfor %}
-        </div>
-        <button type="submit">Confirm Selection</button>
-    </form>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn">Confirm Selection</button>
+        </form>
+    </div>
 </body>
+
 </html>

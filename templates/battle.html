@@ -1,53 +1,53 @@
-<!-- templates/battle.html -->
+<!-- templates/battle.html (Phase 4) -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <title>Random Blade - Battle Arena</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 </head>
 
 <body>
-    <h1>Battle Arena</h1>
+    <div class="container">
+        <h1 class="title">Battle Arena</h1>
 
-    {% if result %}
-    <!-- Final result display -->
-    <div>
-        <h2>{{ result }}</h2>
-        <a href="{{ url_for('reset_game') }}">Battle Again</a>
-        <button onclick="window.close();">Quit</button>
+        {% if result %}
+        <div class="result-banner {{ result|lower }}">
+            <h2>{{ result }}</h2>
+            <div class="result-buttons">
+                <a href="{{ url_for('reset_game') }}">Battle Again</a>
+                <a href="#" onclick="window.close();">Quit</a>
+            </div>
+        </div>
+        {% else %}
+        <div class="battle-row">
+            <div class="warrior-column">
+                {% set player = warriors[player_id - 1] %}
+                <img src="{{ url_for('static', filename='images/' + player.image) }}" alt="{{ player.name }}"
+                    class="avatar" />
+                <p class="name">{{ player.name }}</p>
+                <p class="health">Health: {{ player_health }}</p>
+            </div>
+
+            <div class="versus">
+                <h2>VS</h2>
+            </div>
+
+            <div class="warrior-column">
+                {% set comp = warriors[comp_id - 1] %}
+                <img src="{{ url_for('static', filename='images/' + comp.image) }}" alt="{{ comp.name }}"
+                    class="avatar" />
+                <p class="name">{{ comp.name }}</p>
+                <p class="health">Health: {{ computer_health }}</p>
+            </div>
+        </div>
+
+        <form method="POST">
+            <button type="submit" class="attack-btn">Attack!</button>
+        </form>
+        {% endif %}
     </div>
-    {% else %}
-    <!-- Ongoing battle: show both sides -->
-    <div style="display: flex; justify-content: space-around; align-items: center;">
-        <!-- Player -->
-        {% set player = warriors[player_id - 1] %}
-        <div>
-            <img src="{{ url_for('static', filename='images/' + player.image) }}" alt="{{ player.name }}" width="150"
-                height="150" />
-            <p>{{ player.name }}</p>
-            <p>Health: {{ player_health }}</p>
-        </div>
-
-        <div>
-            <h2>VS</h2>
-        </div>
-
-        <!-- Computer -->
-        {% set comp = warriors[comp_id - 1] %}
-        <div>
-            <img src="{{ url_for('static', filename='images/' + comp.image) }}" alt="{{ comp.name }}" width="150"
-                height="150" />
-            <p>{{ comp.name }}</p>
-            <p>Health: {{ computer_health }}</p>
-        </div>
-    </div>
-
-    <!-- Attack button -->
-    <form method="POST">
-        <button type="submit">Attack!</button>
-    </form>
-    {% endif %}
 </body>
 
 </html>

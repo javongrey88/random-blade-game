@@ -1,26 +1,34 @@
-/* static/css/style.css */
+/* ----------------------------------------
+   Retro 1990s-inspired styling (Phase 6: Responsive)
+   ---------------------------------------- */
 
-/* Retro 1990s-inspired styling */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-    background-color: #000;
-    /* Black */
-    color: #00FF00;
-    /* Neon green */
+    background-color: #111;
+    color: #EEE;
     font-family: 'Press Start 2P', monospace;
     margin: 0;
     padding: 20px;
     text-align: center;
 }
 
-h1.title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px #0F0;
+.container {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-/* Selection screen: card grid */
+/* Title */
+.title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #00FF00;
+    text-shadow: 2px 2px #0000FF;
+}
+
+/* ----------------------------
+   Selection screen cards
+   ---------------------------- */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -29,22 +37,22 @@ h1.title {
 }
 
 .warrior-card {
-    background-color: #111;
+    background-color: #222;
     padding: 10px;
-    border: 2px solid #0F0;
+    border: 2px solid #00CFFF;
     border-radius: 5px;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .warrior-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px #0F0;
+    box-shadow: 0 0 10px #FFA500;
 }
 
 .warrior-card img {
     width: 100%;
     height: auto;
-    border: 1px solid #0F0;
+    border: 1px solid #00CFFF;
     margin-bottom: 10px;
 }
 
@@ -53,25 +61,24 @@ h1.title {
     font-size: 0.8em;
 }
 
-/* Buttons */
+/* Confirm button */
 .btn {
-    background-color: #0F0;
+    background-color: #FFA500;
     color: #000;
     font-size: 0.9em;
     padding: 10px 20px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
 }
 
 .btn:hover {
-    background-color: #0A0;
+    background-color: #FF8C00;
 }
 
-/* Battle screen: side-by-side layout */
+/* ----------------------------
+   Battle screen layout
+   ---------------------------- */
 .battle-row {
     display: flex;
     justify-content: space-around;
@@ -83,9 +90,27 @@ h1.title {
     width: 30%;
 }
 
+/* Bounce */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.damage {
+    animation: bounce 0.5s ease;
+}
+
+/* Avatar */
 .avatar {
     width: 100%;
-    border: 2px solid #0F0;
+    border: 2px solid #8000FF;
     border-radius: 5px;
     margin-bottom: 10px;
 }
@@ -94,18 +119,16 @@ h1.title {
     margin-bottom: 5px;
 }
 
-.health {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
+/* VS text */
 .versus h2 {
     font-size: 2em;
     margin: 0 20px;
+    color: #00CFFF;
 }
 
+/* Attack button */
 .attack-btn {
-    background-color: #FF0000;
+    background-color: #8000FF;
     color: #FFF;
     font-size: 1em;
     padding: 10px 20px;
@@ -115,14 +138,53 @@ h1.title {
 }
 
 .attack-btn:hover {
-    background-color: #C00000;
+    background-color: #551A8B;
 }
 
-/* Result banner styling */
+/* -----------------------------------
+   Health bar
+   ----------------------------------- */
+.health-bar {
+    width: 200px;
+    height: 16px;
+    background: #333;
+    border: 2px solid #0F0;
+    margin: 5px auto 10px;
+}
+
+.health-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+/* fill color thresholds */
+.health-fill[style*="width: 0%"],
+.health-fill[style*="width: 10%"],
+.health-fill[style*="width: 20%"] {
+    background: #F00;
+}
+
+.health-fill[style*="width: 30%"],
+.health-fill[style*="width: 40%"],
+.health-fill[style*="width: 50%"],
+.health-fill[style*="width: 60%"] {
+    background: #FFA500;
+}
+
+.health-fill[style*="width: 70%"],
+.health-fill[style*="width: 80%"],
+.health-fill[style*="width: 90%"],
+.health-fill[style*="width: 100%"] {
+    background: #0F0;
+}
+
+/* -----------------------------------
+   Result banner & exit note
+   ----------------------------------- */
 .result-banner {
     margin-top: 50px;
     padding: 20px;
-    border: 3px solid #0F0;
+    border: 3px solid #00CFFF;
     border-radius: 5px;
 }
 
@@ -137,20 +199,72 @@ h1.title {
 }
 
 .result-banner.draw {
-    background-color: #FFFF00;
+    background-color: #DA70D6;
     color: #000;
 }
 
-.result-buttons a {
-    margin: 10px;
-    display: inline-block;
-    background-color: #0F0;
-    color: #000;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 3px;
+.result-buttons a,
+.result-buttons .btn {
+    margin: 0 10px;
 }
 
-.result-buttons a:hover {
-    background-color: #0A0;
+.exit-note {
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #AAA;
+}
+
+/* -----------------------------------
+   MOBILE RESPONSIVENESS
+   ----------------------------------- */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .warrior-card {
+        padding: 8px;
+    }
+
+    .btn,
+    .attack-btn {
+        padding: 8px 16px;
+        font-size: 0.8em;
+    }
+
+    .title {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .battle-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .warrior-column {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .versus h2 {
+        display: none;
+    }
+
+    .attack-btn {
+        width: 60%;
+        margin: 10px auto;
+        display: block;
+    }
+
+    .health-bar {
+        width: 150px;
+    }
 }

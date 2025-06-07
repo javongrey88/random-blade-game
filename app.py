@@ -1,38 +1,93 @@
-# app.py (Phase 2 changes)
+# app.py (Phase 3)
 from flask import Flask, render_template, request, redirect, url_for, session
 import random
 
 app = Flask(__name__)
 app.secret_key = "replace_with_a_secure_random_key"
 
-# 10 warriors (IDs 1—10; images currently placeholders)
+# app.py (top)
 warriors = [
-    {"id": 1, "name": "Warrior 1", "image": "warrior1.png"},
-    {"id": 2, "name": "Warrior 2", "image": "warrior2.png"},
-    {"id": 3, "name": "Warrior 3", "image": "warrior3.png"},
-    {"id": 4, "name": "Warrior 4", "image": "warrior4.png"},
-    {"id": 5, "name": "Warrior 5", "image": "warrior5.png"},
-    {"id": 6, "name": "Warrior 6", "image": "warrior6.png"},
-    {"id": 7, "name": "Warrior 7", "image": "warrior7.png"},
-    {"id": 8, "name": "Warrior 8", "image": "warrior8.png"},
-    {"id": 9, "name": "Warrior 9", "image": "warrior9.png"},
-    {"id": 10, "name": "Warrior 10", "image": "warrior10.png"}
+    {"id": 1,  "name": "Valiant Knight",     "image": "warrior1.png"},
+    {"id": 2,  "name": "Elf Archer",         "image": "warrior2.png"},
+    {"id": 3,  "name": "Dwarf Berserker",    "image": "warrior3.png"},
+    {"id": 4,  "name": "Orc Warlord",        "image": "warrior4.png"},
+    {"id": 5,  "name": "Mystic Mage",        "image": "warrior5.png"},
+    {"id": 6,  "name": "Shadow Assassin",    "image": "warrior6.png"},
+    {"id": 7,  "name": "Vampire Lord",       "image": "warrior7.png"},
+    {"id": 8,  "name": "Samurai Ronin",      "image": "warrior8.png"},
+    {"id": 9,  "name": "Barbarian Chieftain","image": "warrior9.png"},
+    {"id": 10, "name": "Divine Paladin",     "image": "warrior10.png"}
 ]
+
 
 @app.route("/", methods=["GET", "POST"])
 def select_warrior():
-    # On POST, store chosen warrior ID and redirect to /battle
     if request.method == "POST":
-        chosen_id = int(request.form.get("warrior_id"))
-        session["player_id"] = chosen_id
-        return redirect(url_for("battle_placeholder"))
-    # On GET, render selection screen
+        player_id = int(request.form.get("warrior_id"))
+        session["player_id"] = player_id
+        session["player_health"] = 100
+
+        comp_id = random.randint(1, 10)
+        session["computer_id"] = comp_id
+        session["computer_health"] = 100
+
+        return redirect(url_for("battle"))
     return render_template("select.html", warriors=warriors)
 
-@app.route("/battle")
-def battle_placeholder():
-    # Temporary placeholder until battle logic is implemented
-    return "<h2>Battle route reached. (Coming soon…)</h2>"
+@app.route("/battle", methods=["GET", "POST"])
+def battle():
+    player_id = session.get("player_id")
+    computer_id = session.get("computer_id")
+    player_health = session.get("player_health", 0)
+    computer_health = session.get("computer_health", 0)
+
+    if request.method == "POST":
+        # Random 0/1 rolls
+        player_roll = random.randint(0, 1)
+        comp_roll = random.randint(0, 1)
+
+        # Deduct 10 HP if roll == 0
+        if player_roll == 0:
+            player_health -= 10
+        if comp_roll == 0:
+            computer_health -= 10
+
+        session["player_health"] = player_health
+        session["computer_health"] = computer_health
+
+        # Check for outcome
+        if player_health <= 0 or computer_health <= 0:
+            if player_health <= 0 and computer_health <= 0:
+                result = "Draw"
+            elif player_health <= 0:
+                result = "Defeated"
+            else:
+                result = "Victory"
+            return render_template(
+                "battle.html",
+                warriors=warriors,
+                player_id=player_id,
+                comp_id=computer_id,
+                player_health=player_health,
+                computer_health=computer_health,
+                result=result
+            )
+
+    # Ongoing or initial GET
+    return render_template(
+        "battle.html",
+        warriors=warriors,
+        player_id=player_id,
+        comp_id=computer_id,
+        player_health=player_health,
+        computer_health=computer_health,
+        result=None
+    )
+
+@app.route("/reset")
+def reset_game():
+    session.clear()
+    return redirect(url_for("select_warrior"))
 
 if __name__ == "__main__":
     app.run(debug=True)

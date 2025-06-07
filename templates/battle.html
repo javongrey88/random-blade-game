@@ -1,0 +1,53 @@
+<!-- templates/battle.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Random Blade - Battle Arena</title>
+</head>
+
+<body>
+    <h1>Battle Arena</h1>
+
+    {% if result %}
+    <!-- Final result display -->
+    <div>
+        <h2>{{ result }}</h2>
+        <a href="{{ url_for('reset_game') }}">Battle Again</a>
+        <button onclick="window.close();">Quit</button>
+    </div>
+    {% else %}
+    <!-- Ongoing battle: show both sides -->
+    <div style="display: flex; justify-content: space-around; align-items: center;">
+        <!-- Player -->
+        {% set player = warriors[player_id - 1] %}
+        <div>
+            <img src="{{ url_for('static', filename='images/' + player.image) }}" alt="{{ player.name }}" width="150"
+                height="150" />
+            <p>{{ player.name }}</p>
+            <p>Health: {{ player_health }}</p>
+        </div>
+
+        <div>
+            <h2>VS</h2>
+        </div>
+
+        <!-- Computer -->
+        {% set comp = warriors[comp_id - 1] %}
+        <div>
+            <img src="{{ url_for('static', filename='images/' + comp.image) }}" alt="{{ comp.name }}" width="150"
+                height="150" />
+            <p>{{ comp.name }}</p>
+            <p>Health: {{ computer_health }}</p>
+        </div>
+    </div>
+
+    <!-- Attack button -->
+    <form method="POST">
+        <button type="submit">Attack!</button>
+    </form>
+    {% endif %}
+</body>
+
+</html>

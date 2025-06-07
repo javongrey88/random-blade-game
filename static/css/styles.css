@@ -146,36 +146,22 @@ body {
    ----------------------------------- */
 .health-bar {
     width: 200px;
+    /* full bar width */
     height: 16px;
     background: #333;
+    /* dark “empty” background */
     border: 2px solid #0F0;
+    /* neon-green outline */
     margin: 5px auto 10px;
+    border-radius: 2px;
 }
 
 .health-fill {
     height: 100%;
-    transition: width 0.3s ease;
-}
-
-/* fill color thresholds */
-.health-fill[style*="width: 0%"],
-.health-fill[style*="width: 10%"],
-.health-fill[style*="width: 20%"] {
-    background: #F00;
-}
-
-.health-fill[style*="width: 30%"],
-.health-fill[style*="width: 40%"],
-.health-fill[style*="width: 50%"],
-.health-fill[style*="width: 60%"] {
-    background: #FFA500;
-}
-
-.health-fill[style*="width: 70%"],
-.health-fill[style*="width: 80%"],
-.health-fill[style*="width: 90%"],
-.health-fill[style*="width: 100%"] {
     background: #0F0;
+    /* solid green fill */
+    transition: width 0.3s ease;
+    border-radius: 1px;
 }
 
 /* -----------------------------------

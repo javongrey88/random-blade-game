@@ -11,7 +11,16 @@ Each round, a random “roll” determines who takes damage, and the first whose
 
 ## Getting Started
 
-1. **Clone the repository**  
-   ```bash
-   git clone git@github.com:<YourUsername>/RandomBlade.git
-   cd RandomBlad
+***Clone repository for all files***
+
+1. python -m venv venv
+
+2. source venv/Script/activate
+
+3. pin install -r requirements.txt
+
+4. python app.py
+
+5. open link provided in browser
+
+
